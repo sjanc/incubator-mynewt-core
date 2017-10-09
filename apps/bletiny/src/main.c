@@ -1544,11 +1544,15 @@ bletiny_scan_cancel(void)
 }
 
 int
-bletiny_set_adv_data(struct ble_hs_adv_fields *adv_fields)
+bletiny_set_adv_data(struct ble_hs_adv_fields *adv_fields, bool scan_rsp)
 {
     int rc;
 
-    rc = ble_gap_adv_set_fields(adv_fields);
+    if (scan_rsp) {
+        rc = ble_gap_adv_rsp_set_fields(adv_fields);
+    } else {
+        rc = ble_gap_adv_set_fields(adv_fields);
+    }
     return rc;
 }
 

@@ -453,6 +453,8 @@ bletiny_adv_help(void)
 #endif
 }
 
+static bool set_scan_rsp;
+
 static int
 cmd_adv(int argc, char **argv)
 {
@@ -615,6 +617,10 @@ cmd_adv(int argc, char **argv)
         console_printf("advertise fail: %d\n", rc);
         return rc;
     }
+
+    set_scan_rsp = primary_phy &&
+                   (params.disc_mode == BLE_GAP_DISC_MODE_NON) &&
+                   (params.conn_mode == BLE_GAP_CONN_MODE_NON);
 
     return 0;
 }
@@ -2820,7 +2826,7 @@ cmd_set_adv_data(void)
                                             eddystone_url_body_len,
                                             eddystone_url_suffix);
     } else {
-        rc = bletiny_set_adv_data(&adv_fields);
+        rc = bletiny_set_adv_data(&adv_fields, set_scan_rsp);
     }
     if (rc != 0) {
         console_printf("error setting advertisement data; rc=%d\n", rc);

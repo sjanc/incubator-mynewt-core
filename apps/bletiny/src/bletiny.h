@@ -187,7 +187,7 @@ int bletiny_ext_scan(uint8_t own_addr_type, uint16_t duration, uint16_t period,
                      const struct ble_gap_ext_disc_params *uncoded_params,
                      const struct ble_gap_ext_disc_params *coded_params);
 int bletiny_scan_cancel(void);
-int bletiny_set_adv_data(struct ble_hs_adv_fields *adv_fields);
+int bletiny_set_adv_data(struct ble_hs_adv_fields *adv_fields, bool scan_rsp);
 int bletiny_update_conn(uint16_t conn_handle,
                          struct ble_gap_upd_params *params);
 void bletiny_chrup(uint16_t attr_handle);
